@@ -1,0 +1,20 @@
+[package]
+name = "xjserver-macros"
+version = "0.0.1"
+edition = "2024"
+description = "Proc-macros for xjserver route handlers"
+license = "MIT"
+
+[lib]
+proc-macro = true
+
+[features]
+default = []
+# When enabled (via `xjserver`'s `discover` feature), route macros emit
+# `inventory::submit!` for `register = true` (default).
+discover = []
+
+[dependencies]
+proc-macro2 = "1"
+quote = "1"
+syn = { version = "2", features = ["full", "parsing", "extra-traits"] }

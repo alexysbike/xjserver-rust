@@ -1,0 +1,70 @@
+[package]
+name = "xjserver"
+version = "0.0.1"
+edition = "2024"
+
+[features]
+default = ["discover"]
+# Auto-registration via `inventory`. Opt-out: `default-features = false` (embedded/WASM)
+# o runtime `skip_discover()` / `builder_without_discover()`.
+discover = ["dep:inventory", "xjserver-macros/discover"]
+
+[dependencies]
+async-trait = "0.1"
+axum = "0.8"
+xjserver-macros = { path = "../xjserver-macros" }
+bytes = "1"
+chrono = { version = "0.4", default-features = false, features = ["clock", "std"] }
+futures-util = "0.3"
+governor = "0.8"
+http = "1"
+http-body-util = "0.1"
+hyper = { version = "1", features = ["server", "http2"] }
+hyper-util = { version = "0.1", features = ["tokio", "server-auto", "http2"] }
+inventory = { version = "0.3", optional = true }
+jsonschema = "0.29"
+jsonwebtoken = "9"
+prost = "0.13"
+prost-reflect = { version = "0.14", features = ["serde"] }
+prost-types = "0.13"
+protox = "0.7"
+schemars = "0.8"
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "net"] }
+tonic = { version = "0.12", default-features = false, features = ["transport", "codegen"] }
+tower = "0.5"
+tower-http = { version = "0.6", features = ["cors", "set-header"] }
+
+[[example]]
+name = "hello"
+path = "examples/hello.rs"
+
+[[example]]
+name = "auth"
+path = "examples/auth.rs"
+
+[[example]]
+name = "introspection"
+path = "examples/introspection.rs"
+
+[[example]]
+name = "grpc"
+path = "examples/grpc.rs"
+
+[[example]]
+name = "extractors"
+path = "examples/extractors.rs"
+
+[[example]]
+name = "macros"
+path = "examples/macros.rs"
+
+[[example]]
+name = "discover"
+path = "examples/discover.rs"
+required-features = ["discover"]
+
+[dev-dependencies]
+http-body-util = "0.1"
+tower = { version = "0.5", features = ["util"] }
